@@ -2,13 +2,18 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:security="http://www.springframework.org/schema/security"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/mvc
 	   http://www.springframework.org/schema/mvc/spring-mvc.xsd
 	   http://www.springframework.org/schema/context
-	   http://www.springframework.org/schema/context/spring-context.xsd">
+	   http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled" jsr250-annotations="enabled"/>
 
     <context:component-scan base-package="ru.geel.fastest.mvc" />
 
@@ -24,4 +29,9 @@
 
     <mvc:view-controller path="/index.html" view-name="/index"/>
     <mvc:view-controller path="/jdbc" view-name="/jdbc/jdbc"/>
+    <mvc:view-controller path="/security" view-name="/security/security"/>
+    <mvc:view-controller path="/admin" view-name="/security/admin"/>
+    <mvc:view-controller path="/profile" view-name="/security/profile"/>
+    <mvc:view-controller path="/login" view-name="/login/login"/>
+    <mvc:view-controller path="/signup" view-name="/signup/signup"/>
 </beans>

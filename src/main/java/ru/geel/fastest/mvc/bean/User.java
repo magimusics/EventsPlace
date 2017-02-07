@@ -9,6 +9,15 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public int getIdUser() {
         return id;
