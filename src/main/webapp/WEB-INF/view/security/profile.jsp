@@ -8,6 +8,7 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/resources/mabdesign.css">
 </head>
 <body>
 
@@ -16,65 +17,35 @@
     <c:redirect url="/index.html"/>
 </c:if>
 
-        <!-- Page Content -->
-        <p class="container">
+<div id="block1">
+    <div class="block2">
+        <ul class="refers">
+            <li class="lt">
+                <security:authentication property="principal.username"/>
+            </li>
+            <li class="lt"><b><a class="hh" href="/signout">Выйти</a> </b>
+            </li>
+        </ul>
+    </div>
+</div>
 
-            <!-- Page Heading/Breadcrumbs -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Работа Spring Security
-                        <small>доступ только для зарегистрированных пользователей</small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="index.html">Home</a>
-                        </li>
-                        <li class="active">Spring Security</li>
-                    </ol>
-                </div>
-            </div>
+<div class="sbl">
+        <h7>Здравствуйте!</h7>
+</div>
 
-            <!-- Content Row -->
-            <div class="row">
+<div class="thbl">
+    <c:if test="${not empty userinfo}">
+        Hello! I am
 
-                <div class="col-lg-12">
-                    <p>Данные о пользователе из Spring Security. Текст ниже доступен только ролям супер юзеру, админу, или юзеру: </p>
-                    <security:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_USER', 'ROLE_USER')">
-                        <b>Вы вошли как:</b> <security:authentication property="principal.username"/> с ролью: <b><security:authentication property="principal.authorities"/> </b>
-                        <br />
+        <c:if test="${userinfo !='true' and userinfo != 'false'}">
 
-
-                        <br />
-                        <br />
-                        <p>Ссылка logout имеет атрибут  <span style="color: #0080c0;">/j_spring_security_logout</span>, который прописан в security-config.xml</p>
-                        <span style="color: #568C00;"><security:authentication property="principal.username"/></span>
-                        <a style="color: red;" href="<c:url value="/signout"/>">Logout</a>
-                    </security:authorize>
-
-                </div>
-
-            </div>
-
-            <c:if test="${not empty userinfo}">
-                Hello! I am
-                <c:if test="${userinfo == 'true'}">
-                    <font color="green"><b>${userinfo}</b></font>
-                </c:if>
-                <c:if test="${userinfo == 'false'}">
-                    <font color="red"><b>${userinfo}</b></font>
-                </c:if>
-                <c:if test="${userinfo !='true' and userinfo != 'false'}">
-                    ${userinfo.username}</p>
-                    ${userinfo.description}</p>
-                </c:if>
-            </c:if>
-            <c:if test="${empty userinfo}">
-                EMPTY!!!!!
-            </c:if>
-            <!-- /.row -->
-
+        <font color="green"><b>${userinfo.firstname} <c:out value=" "/> ${userinfo.lastname}</b></font>
             <hr>
+            ${userinfo.description}<br>
+            ${userinfo.country}, ${userinfo.city}<br>
+            ${userinfo.occupation}
+        </c:if>
+    </c:if>
+</div>
 
-        </div>
-        <!-- /.container -->
-</body>
 </html>

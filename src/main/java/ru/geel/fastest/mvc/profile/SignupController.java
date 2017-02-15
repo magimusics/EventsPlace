@@ -11,6 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.geel.fastest.mvc.bean.User;
 import ru.geel.fastest.mvc.jdbc.JDBCExample;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 /**
  * Created by ivangeel on 06.02.17.
  */
@@ -22,22 +25,27 @@ public class SignupController {
     JDBCExample jdbcExample;
 
     @RequestMapping(value="/signup", method=RequestMethod.GET)
-    public ModelAndView greetingForm() {
+    public String greetingForm() {
 
-        return new ModelAndView("/signup/signup", "user", new User());
+        return "/signup/signup";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String createNewUser(@RequestParam String username,
-                                @RequestParam String password,
-                                @RequestParam String description,
-                                ModelMap modelMap)
+    public String createNewUser(@RequestParam String fname, @RequestParam String lastname, @RequestParam int month,
+                                @RequestParam String password, @RequestParam String sex, @RequestParam String day,
+                                @RequestParam String description, @RequestParam String year, @RequestParam String email,
+                                @RequestParam String photo, @RequestParam String country, @RequestParam String city,
+                                @RequestParam String occupation, ModelMap modelMap)
     {
+        Date bdate = new Date(Integer.parseInt(year), month, Integer.parseInt(day));
+
+        if(photo==null)
+            return "/signup/signup";
         System.out.println("SignupController is working!");
 
-        jdbcExample.addUser(username,password,description);
-        jdbcExample.addUserAuthority(username);
-        modelMap.addAttribute("username", username);
+        jdbcExample.addUser(fname, lastname, password,description, (sex=="male"?true:false), bdate, email, "", country, city, occupation);
+        jdbcExample.addUserAuthority(fname);
+        modelMap.addAttribute("username", fname);
         modelMap.addAttribute("password", password);
         modelMap.addAttribute("description", description);
 

@@ -48,7 +48,7 @@ PIZDEC
     </c:if>
     <c:if test="${resultUser !='true' and resultUser != 'false'}">
         <c:forEach var="i" items="${resultUser}">
-        <p>${i.username}
+        <p>${i.firstname}
         <c:out value=" password="/>
         ${i.password}</p>
         </c:forEach>

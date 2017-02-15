@@ -11,10 +11,7 @@ import ru.geel.fastest.mvc.bean.User;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 /**
@@ -37,11 +34,19 @@ public class JDBCExample {
 
     public User mapRowUser(ResultSet resultSet)throws SQLException {
         User user = new User();
-        user.setIdUser(resultSet.getInt("id"));
-        user.setUsername(resultSet.getString("username"));
+        user.setId(resultSet.getInt("id"));
+        user.setFirstname(resultSet.getString("username"));
+        user.setLastname(resultSet.getString("lusername"));
         user.setPassword(resultSet.getString("password"));
         user.setEnabled(resultSet.getBoolean("enabled"));
         user.setDescription(resultSet.getString("description"));
+        user.setPassword(resultSet.getString("password"));
+        user.setEmail(resultSet.getString("email"));
+        user.setImg(resultSet.getString("aphoto"));
+        user.setCountry(resultSet.getString("country"));
+        user.setCity(resultSet.getString("city"));
+        user.setOccupation(resultSet.getString("occupation"));
+        user.setBdate(resultSet.getDate("password"));
         return user;
     }
 
@@ -72,17 +77,26 @@ public class JDBCExample {
         return username;
     }
 
-    public void addUser(String username, String password, String description){
+    public void addUser(String username, String lusername, String password, String description, boolean sex,
+                        Date bdate, String email, String photo, String country, String city, String occupation){
         System.out.println("JDBCExample: addUser is called");
-        final String INSERT_SQL = "insert into user (username, password, enabled, description) values (?, ?, ?, ?)";
+        final String INSERT_SQL = "insert into user (username, lusername, password, enabled, description, " +
+                "bdate, email, aphoto, country, city, occupation) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL);
                 preparedStatement.setString(1, username);
-                preparedStatement.setString(2, password);
-                preparedStatement.setBoolean(3, true);
-                preparedStatement.setString(4, description);
+                preparedStatement.setString(2, lusername);
+                preparedStatement.setString(3, password);
+                preparedStatement.setBoolean(4, true);
+                preparedStatement.setString(5, description);
+                preparedStatement.setDate(6, bdate);
+                preparedStatement.setString(7, email);
+                preparedStatement.setString(8, photo);
+                preparedStatement.setString(9, country);
+                preparedStatement.setString(10, city);
+                preparedStatement.setString(11, occupation);
                 return preparedStatement;
             }
         });
