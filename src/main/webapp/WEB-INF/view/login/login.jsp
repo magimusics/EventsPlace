@@ -19,7 +19,7 @@
 
 
 <c:if test="${isUSer}">
-<c:redirect url="/index.html"/>
+<c:redirect url="/profile"/>
 </c:if>
 
 <div id="block1">
@@ -44,12 +44,12 @@
     </c:if>
     <br>
 
-    <label for="inputEmail" class="sr-only"><spring:message code="email" text="Email"/></label>
-    <input id="inputEmail" class="form-control" name="username"  required autofocus/>
+    <label for="inputEmail"><spring:message code="email" text="Email"/></label>
+    <input id="inputEmail" name="username"  required autofocus/>
 
     <br/>
     <label for="inputPassword" class="sr-only"><spring:message code="pass" text="Password"/></label>
-    <input type="password" id="inputPassword" class="form-control" name="password" required/>
+    <input type="password" class="form-control" name="password"/>
 
     <br/>
 

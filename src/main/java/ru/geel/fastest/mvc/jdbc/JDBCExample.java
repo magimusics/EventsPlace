@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
+import ru.geel.fastest.mvc.bean.SUser;
 import ru.geel.fastest.mvc.bean.User;
 
 import javax.annotation.PostConstruct;
@@ -40,13 +41,12 @@ public class JDBCExample {
         user.setPassword(resultSet.getString("password"));
         user.setEnabled(resultSet.getBoolean("enabled"));
         user.setDescription(resultSet.getString("description"));
-        user.setPassword(resultSet.getString("password"));
+        user.setBdate(resultSet.getDate(8));
         user.setEmail(resultSet.getString("email"));
         user.setImg(resultSet.getString("aphoto"));
         user.setCountry(resultSet.getString("country"));
         user.setCity(resultSet.getString("city"));
         user.setOccupation(resultSet.getString("occupation"));
-        user.setBdate(resultSet.getDate("password"));
         return user;
     }
 
@@ -66,7 +66,7 @@ public class JDBCExample {
     public User queryUser(String name){
 
         System.out.println("JDBCExample: queryUser() is called");
-        final String QSQL = "select * from user where username='" + name + "'";
+        final String QSQL = "select * from user where email='" + name + "'";
         User username = this.jdbcTemplate.queryForObject(QSQL, new RowMapper<User>() {
             @Override
             public User mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -77,26 +77,25 @@ public class JDBCExample {
         return username;
     }
 
-    public void addUser(String username, String lusername, String password, String description, boolean sex,
-                        Date bdate, String email, String photo, String country, String city, String occupation){
+    public void addUser(User user){
         System.out.println("JDBCExample: addUser is called");
-        final String INSERT_SQL = "insert into user (username, lusername, password, enabled, description, " +
-                "bdate, email, aphoto, country, city, occupation) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        final String INSERT_SQL = "insert into user (username, email, lusername, password, enabled, description, " +
+                "bdate, aphoto, country, city, occupation) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL);
-                preparedStatement.setString(1, username);
-                preparedStatement.setString(2, lusername);
-                preparedStatement.setString(3, password);
-                preparedStatement.setBoolean(4, true);
-                preparedStatement.setString(5, description);
-                preparedStatement.setDate(6, bdate);
-                preparedStatement.setString(7, email);
-                preparedStatement.setString(8, photo);
-                preparedStatement.setString(9, country);
-                preparedStatement.setString(10, city);
-                preparedStatement.setString(11, occupation);
+                preparedStatement.setString(1, user.getFirstname());
+                preparedStatement.setString(2, user.getEmail());
+                preparedStatement.setString(3, user.getLastname());
+                preparedStatement.setString(4, user.getPassword());
+                preparedStatement.setBoolean(5, true);
+                preparedStatement.setString(6, user.getDescription());
+                preparedStatement.setDate(7, user.getBdate());
+                preparedStatement.setString(8, user.getImg());
+                preparedStatement.setString(9, user.getCountry());
+                preparedStatement.setString(10, user.getCity());
+                preparedStatement.setString(11, user.getOccupation());
                 return preparedStatement;
             }
         });
@@ -104,7 +103,7 @@ public class JDBCExample {
 
     public void addUserAuthority(String username){
         System.out.println("JDBCExample: addAuthority is called");
-        final String INSERT_SQL = "insert into authorities (username, authority) values (?, ?)";
+        final String INSERT_SQL = "insert into authorities (email, authority) values (?, ?)";
         jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -114,5 +113,18 @@ public class JDBCExample {
                 return preparedStatement;
             }
         });
+    }
+
+    public void updatePhoto(String username, String path){
+        jdbcTemplate.execute("UPDATE user SET aphoto = '" + path + "' WHERE username = '" + username + "';");
+    }
+
+    public void updateSettings(SUser sUser, String email, Date bDate){
+        System.out.println(String.format("UPDATE user SET username='%s', lastname='%s', country='%s', city='%s', occupation='%s', bdate='%s'," +
+                        "description='%s' WHERE email='%s'", sUser.getName(), sUser.getLastname(), sUser.getCountry(), sUser.getCity(), sUser.getOccupation(),
+                bDate, sUser.getDescription(), email));
+        jdbcTemplate.execute(String.format("UPDATE user SET username='" + sUser.getName() + "', lusername='%s', country='%s', city='%s', occupation='%s', bdate='%s'," +
+                "description='%s' WHERE email='%s'", sUser.getLastname(), sUser.getCountry(), sUser.getCity(), sUser.getOccupation(),
+                bDate, sUser.getDescription(), email));
     }
 }

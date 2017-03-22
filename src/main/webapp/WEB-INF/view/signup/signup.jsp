@@ -22,17 +22,17 @@
 
 <form name="signup" action="/signup" method="post" accept-charset="utf-8">
 
-    <input name="fname" type="text" value placeholder="Ваше имя"/>
+    <input name="firstname" type="text" value="${user.firstname}" placeholder="Ваше имя"/>
 </p>
-    <input name="lastname" type="text" value placeholder="Ваша фамилия"/>
+    <input name="lastname" type="text" value="${user.lastname}" placeholder="Ваша фамилия"/>
     </p>
-    <input name="email" type="text" value placeholder="Электронная почта"/>
+    <input name="email" type="text" value="${user.email}" placeholder="Электронная почта"/>
     </p>
-    <input name="country" type="text" value placeholder="Страна"/>
+    <input name="country" type="text" value="${user.country}" placeholder="Страна"/>
     </p>
-    <input name="city" type="text" value placeholder="Город"/>
+    <input name="city" type="text" value="${user.city}" placeholder="Город"/>
     </p>
-    <input name="occupation" type="text" value placeholder="Род занятий"/>
+    <input name="occupation" type="text" value="${user.occupation}" placeholder="Род занятий"/>
     </p>
     <input type="file" name="photo">Загрузить фото
     <br>
@@ -90,8 +90,9 @@
     <input name="year" type="text" value placeholder="Год"/>
     <br>
 
+
     </p>
-    <textarea type="submit" name="description" value placeholder="Описание"></textarea><c:out value="${lop}"/>
+    <textarea type="submit" name="description" value="${user.description}" placeholder="Описание"></textarea><c:out value="${lop}"/>
     <br>
     Пол
     <p>
@@ -100,12 +101,17 @@
     </p>
     <input type="password" name="password" value placeholder="Пароль"/>
     <br/>
+
+    <c:if test="${not empty fillError}">
+        <span style="color: crimson">
+            СУКА, ВВЕДИ ВСЕ ДО КОНЦА!!!
+        </span>
+    </c:if>
+    <br>
     <input type="submit" name="send" value="Зарегестрироваться!">
-    
+
     <c:if test="${not empty param.send}">
-        <c:if test="${not empty param.description}">
-            <c:set var="lop" value="${param.description}" scope="session"></c:set>
-        </c:if>
+        <c:set var="user.bdate" value="1991-01-08"/>
     </c:if>
 
 

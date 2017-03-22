@@ -22,7 +22,7 @@ public class JDBCController {
     {
         System.out.println("JDBCController jdbcAllUsers() is called");
         List<User> users = jdbcExample.queryAllUsers();
-        //System.out.println(users+"IUYGVFCFYGU");
+        System.out.println(users+"IUYGVFCFYGU");
         return new ModelAndView("/jdbc/jdbc", "resultUser", users);
     }
 }

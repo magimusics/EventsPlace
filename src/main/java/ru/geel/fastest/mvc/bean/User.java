@@ -11,15 +11,17 @@ public class User {
     private int id;
     private String firstname;
     private String lastname;
-    private String email;
     private String password;
     private boolean enabled;
     private String description;
+    private Date bdate;
+    private String email;
+    private String img;
     private String country;
     private String city;
     private String occupation;
-    private String img;
-    private Date bdate;
+
+
 
     public Date getBdate() {
         return bdate;
@@ -116,5 +118,13 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public boolean isFull()
+    {
+        if (firstname.equals("") || lastname.equals("") || password.equals("") || description.equals("") || email.equals("") || country.equals("") || city.equals("") || occupation.equals("")){
+            return false;
+        }
+        else return true;
     }
 }

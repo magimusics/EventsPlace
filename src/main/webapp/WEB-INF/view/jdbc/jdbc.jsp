@@ -50,7 +50,10 @@ PIZDEC
         <c:forEach var="i" items="${resultUser}">
         <p>${i.firstname}
         <c:out value=" password="/>
-        ${i.password}</p>
+        ${i.password}
+            <br>
+            ${i.bdate}
+
         </c:forEach>
     </c:if>
 </c:if>

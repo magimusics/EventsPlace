@@ -10,6 +10,13 @@
     <title>New User</title>
 </head>
 <body>
-<span style="color: #dc143c; ">${username} : </span> ${password}. ${description}
+<span style="color: #dc143c; ">${user.firstname} : </span>
+<br>
+${user.lastname}.
+<br>
+${user.bdate}oko
+<br>
+${user.city}
+<br>
 </body>
 </html>

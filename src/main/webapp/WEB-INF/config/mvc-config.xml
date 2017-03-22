@@ -26,6 +26,14 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean id="jacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="prettyPrint" value="true" />
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
 
     <mvc:view-controller path="/index.html" view-name="/index"/>
     <mvc:view-controller path="/jdbc" view-name="/jdbc/jdbc"/>
@@ -34,4 +42,6 @@
     <mvc:view-controller path="/profile" view-name="/security/profile"/>
     <mvc:view-controller path="/login" view-name="/login/login"/>
     <mvc:view-controller path="/signup" view-name="/signup/signup"/>
+    <mvc:view-controller path="/settings" view-name="/settings/settings"/>
+    <mvc:view-controller path="/val" view-name="/settings/val"/>
 </beans>

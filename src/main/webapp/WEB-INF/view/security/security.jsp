@@ -10,15 +10,6 @@
 </head>
 <body>
 
-
-
-
-        <c:url value="/adminOrSuperUserCanCall" var="adminOrSuperUserCanCall" />
-        <c:url value="/userOrAdminCanCallSpEL" var="userOrAdminCanCallSpEL" />
-        <c:url value="/adminMethodSecured" var="adminMethodSecured" />
-        <c:url value="/security/admin.html" var="admin" />
-
-
         <!-- Page Content -->
         <div class="container">
 
