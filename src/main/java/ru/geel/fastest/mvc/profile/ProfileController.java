@@ -1,13 +1,12 @@
 package ru.geel.fastest.mvc.profile;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import ru.geel.fastest.mvc.bean.User;
@@ -28,17 +27,31 @@ public class ProfileController {
     @Autowired
     JDBCExample jdbcExample;
 
-    @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ModelAndView jdbcUser()
+    @RequestMapping(value = "/profile{userId}", method = RequestMethod.GET)
+    public ModelAndView jdbcUser(@PathVariable Integer userId, ModelMap modelMap)
     {
-
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            String name = auth.getName();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
         if(name!="anonymousUser") {
             System.out.println("ProfileController jdbcUser() is called");
-            System.out.println("USER " + auth.getAuthorities().toString());
+            System.out.println("USER id " + userId);
+
             User user = jdbcExample.queryUser(name);
-            System.out.println("User" + user + " is active!");
+            User userinfo = jdbcExample.queryUserdyId(userId);
+            modelMap.addAttribute("user", user);
+
+            return new ModelAndView("/security/profile", "userinfo", userinfo);
+        }
+        else return new ModelAndView("redirect:/");
+    }
+
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public ModelAndView getUserProfile()
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String name = authentication.getName();
+            User user = jdbcExample.queryUser(name);
             return new ModelAndView("/security/profile", "userinfo", user);
         }
         else return new ModelAndView("redirect:/");

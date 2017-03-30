@@ -37,17 +37,13 @@
 </div>
 
 <div class="sbl">
-    <c:if test="${not isUSer}">
-    <c:if test="${empty param.error}">
-        <h7>Вы не вошли в приложение</h7>
-    </c:if>
-</c:if>
     <c:if test="${isUSer}">
-        <h7>Здравствуйте!</h7>
+        <c:redirect url="/profile"/>
     </c:if>
 </div>
 <div class="thbl">
     <c:if test="${not isUSer}">
+        <c:redirect url="/login"/>
         <a style="color: Green;" href="<c:url value="/login"/>">Login</a>
     </c:if>
     <c:if test="${isUSer}">

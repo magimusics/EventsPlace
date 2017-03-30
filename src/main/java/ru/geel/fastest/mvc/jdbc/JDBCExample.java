@@ -77,6 +77,20 @@ public class JDBCExample {
         return username;
     }
 
+    public User queryUserdyId(int userId){
+
+        System.out.println("JDBCExample: queryUser() is called");
+        final String QSQL = "select * from user where id='" + userId + "'";
+        User username = this.jdbcTemplate.queryForObject(QSQL, new RowMapper<User>() {
+            @Override
+            public User mapRow(ResultSet resultSet, int i) throws SQLException {
+                User user = mapRowUser(resultSet);
+                return user;
+            }
+        });
+        return username;
+    }
+
     public void addUser(User user){
         System.out.println("JDBCExample: addUser is called");
         final String INSERT_SQL = "insert into user (username, email, lusername, password, enabled, description, " +
@@ -116,7 +130,20 @@ public class JDBCExample {
     }
 
     public void updatePhoto(String username, String path){
-        jdbcTemplate.execute("UPDATE user SET aphoto = '" + path + "' WHERE username = '" + username + "';");
+        System.out.println("JDBCExample: updatePhoto has been called");
+        jdbcTemplate.execute("UPDATE user SET aphoto = '" + path + "' WHERE email = '" + username + "';");
+    }
+
+    public List<User> showAllParticipants(int eventId){
+        String SQLQ = "select * from user, eventParticipants e where e.idUsername=user.id and e.idEvent="+eventId;
+        List<User> userList = this.jdbcTemplate.query(SQLQ, new RowMapper<User>() {
+            @Override
+            public User mapRow(ResultSet resultSet, int i) throws SQLException {
+                User user = mapRowUser(resultSet);
+                return user;
+            }
+        });
+        return userList;
     }
 
     public void updateSettings(SUser sUser, String email, Date bDate){

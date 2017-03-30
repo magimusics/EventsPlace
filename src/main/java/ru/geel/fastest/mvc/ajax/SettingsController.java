@@ -25,13 +25,10 @@ import java.sql.Date;
 @RestController
 public class SettingsController {
 
-    //@RequestMapping(value = "/sendajaxdata", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,
-            //consumes = MediaType.APPLICATION_JSON_VALUE)
-
     @Autowired
     JDBCExample jdbcExample;
 
-    String currentUserName;
+    private String currentUserName;
 
     @RequestMapping(value = "/sendajaxdata", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String ajaxResponse(@RequestBody SUser sUser)
@@ -41,7 +38,7 @@ public class SettingsController {
         System.out.println(currentUserName);
         System.out.println(sUser);
 
-        return "Все заебись!";
+        return "OK!";
     }
 
     @RequestMapping(value = "/settings", method = RequestMethod.GET)

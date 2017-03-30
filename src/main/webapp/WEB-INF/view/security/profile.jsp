@@ -28,12 +28,12 @@
 <div class = 'info_big_region'>
     <div class = 'right_menu_div'>
         <ul class = 'right_menu_ul'>
-            <li><a href = '#'>Моя страница</a></li>
-            <li><a href = '#'>Мои друзья</a></li>
-            <li><a href = '#'>Мои сообщения</a></li>
+            <li><a href = '/profile'>Моя страница</a></li>
+            <li><a href = '/friends'>Мои друзья</a></li>
+            <li><a href = '/ms'>Мои сообщения</a></li>
             <li><a href = '#'>Мои группы</a></li>
-            <li><a href = '#'>Мои события</a></li>
-            <li><a href = '#'>Создать событие</a></li>
+            <li><a href = '/events'>Мои события</a></li>
+            <li><a href = '/create'>Создать событие</a></li>
         </ul>
     </div>
     <div class = 'info_region'>
