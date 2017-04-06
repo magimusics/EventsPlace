@@ -11,6 +11,6 @@
     <title>HELLO</title>
 </head>
 <body>
-СЛЫШЬ БЛЯ, ERROR!!!
+Этой страницы не существует ERROR!!!
 </body>
 </html>
