@@ -105,7 +105,7 @@ public class MessageController {
             }
         });
         System.err.println("User "+user+" MESSAGE       "+deferredResult.getResult());
-        //while (deferredResult.getResult()==null){}
+        
         return deferredResult;
     }
 }
