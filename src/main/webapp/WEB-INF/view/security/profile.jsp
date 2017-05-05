@@ -29,8 +29,8 @@
     <div class = 'right_menu_div'>
         <ul class = 'right_menu_ul'>
             <li><a href = '/profile'>Моя страница</a></li>
-            <li><a href = '/friends'>Мои друзья</a></li>
-            <li><a href = '/ms'>Мои сообщения</a></li>
+            <li><a href = '/users'>Мои друзья</a></li>
+            <li><a href = '/send'>Мои сообщения</a></li>
             <li><a href = '#'>Мои группы</a></li>
             <li><a href = '/events'>Мои события</a></li>
             <li><a href = '/create'>Создать событие</a></li>
@@ -45,6 +45,8 @@
         <div class = 'reducting'>
             <a href = '#'>Редактировать</a>
         </div>
+        <br>
+        <a href = "/send<c:out value="${userinfo.id}"/>">Написать</a>
         <div class = 'photo_video'>
             <table>
                 <tr>

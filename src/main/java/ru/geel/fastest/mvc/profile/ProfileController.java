@@ -32,7 +32,7 @@ public class ProfileController {
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
-        if(name!="anonymousUser") {
+        if(!name.equals("anonymousUser")) {
             System.out.println("ProfileController jdbcUser() is called");
             System.out.println("USER id " + userId);
 

@@ -24,11 +24,6 @@ public class UsersSearchController {
     JDBCExample jdbcExample;
 
     //по-хорошему надо бы User заменить на другую сущность - более легкую (имя, фамилия, город, id)
-    /*@RequestMapping(value = "/all_users", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody List<User> searchAllUsers(HttpServletRequest httpServletRequest){
-        System.out.println(httpServletRequest.getParameter("query"));
-        return null;
-    }*/
 
     @RequestMapping(value = "/all_users", method = RequestMethod.POST)
     public List<User> searchAllUsers(HttpServletRequest httpServletRequest){

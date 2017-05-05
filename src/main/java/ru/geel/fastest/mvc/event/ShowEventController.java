@@ -53,9 +53,10 @@ public class ShowEventController {
 
     @RequestMapping(value = "/addparticipant", method =  RequestMethod.POST, produces = "application/json")
     public @ResponseBody String addParticipant(@RequestBody EventPost event){
-        System.out.println("addPArticipant");
+        System.out.println("add Participant");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            System.out.println(event);
             String username = authentication.getName();
             User user = jdbcExample.queryUser(username);
             if(event.getCommand()==1) {
@@ -66,6 +67,6 @@ public class ShowEventController {
             }
         }
 
-        return "OK";
+        return "{\"OK\":\"OK\"}";
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import ru.geel.fastest.mvc.bean.User;
 import ru.geel.fastest.mvc.entity.Event;
+import ru.geel.fastest.mvc.entity.EventPost;
 import ru.geel.fastest.mvc.jdbc.JDBCExample;
 import ru.geel.fastest.mvc.orm.ORMService;
 
@@ -39,17 +40,20 @@ public class CreateEventController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String createEvent(@RequestBody Event event) {
+    public @ResponseBody
+    EventPost createEvent(@RequestBody Event event) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             event.setCreator(userId);
             System.out.println(event);
             int result = ormService.createEvent(event);
             if (result > 0) {
-                return "/event" + ormService.selectLastEventId();
+                EventPost eventPost = new EventPost();
+                eventPost.setEvent("event"+ormService.selectLastEventId());
+                return eventPost;
             }
-            return ("redirect:/fgdf");
+            return null;
         }
-        return ("redirect:/");
+        return null;
     }
 }

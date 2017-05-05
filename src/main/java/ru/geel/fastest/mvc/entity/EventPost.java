@@ -6,6 +6,16 @@ package ru.geel.fastest.mvc.entity;
 public class EventPost {
     private int id;
     private int command;
+    private String event;
+
+    public void setEvent(String event) {
+        this.event = "/"+event;
+    }
+
+    public String getEvent() {
+
+        return event;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -30,6 +40,7 @@ public class EventPost {
         return "EventPost{" +
                 "command=" + command +
                 ", id=" + id +
+                ", event='" + event + '\'' +
                 '}';
     }
 }

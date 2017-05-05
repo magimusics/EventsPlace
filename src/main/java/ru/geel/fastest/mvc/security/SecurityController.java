@@ -2,12 +2,19 @@ package ru.geel.fastest.mvc.security;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by ivangeel on 24.01.17.
@@ -39,5 +46,16 @@ public class SecurityController {
         System.out.println("SecurityController adminMethodSecured() is called with ADMIN ROLE");
         return new ModelAndView("/security/admin");
 
+    }
+
+    public class ExUsernamePasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
+        @Override
+        public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+            final String dbValue = request.getParameter("email");
+            request.getSession().setAttribute("email", dbValue);
+            UsernamePasswordAuthenticationFilter
+            return super.attemptAuthentication(request, response);
+        }
     }
 }

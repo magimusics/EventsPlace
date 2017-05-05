@@ -15,9 +15,8 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_event")
-    private int id;
+    private int id_event;
 
-    @NotEmpty
     @Column(name = "creator")
     private int creator;
 
@@ -75,7 +74,7 @@ public class Event {
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id_event = id;
     }
 
     public void setPlace(String place) {
@@ -111,7 +110,7 @@ public class Event {
     }
 
     public int getId() {
-        return id;
+        return id_event;
     }
 
     public String getPlace() {
@@ -131,7 +130,7 @@ public class Event {
     public String toString() {
         return "Event{" +
                 "ageMAX=" + ageMAX +
-                ", id=" + id +
+                ", id=" + id_event +
                 ", creator=" + creator +
                 ", description='" + description + '\'' +
                 ", cover='" + cover + '\'' +

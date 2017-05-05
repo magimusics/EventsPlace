@@ -13,5 +13,4 @@ public class ORMController {
     @Autowired
     private ORMService ormService;
 
-
 }

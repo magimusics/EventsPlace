@@ -16,7 +16,7 @@ import java.util.List;
  * Created by ivangeel on 25.03.17.
  */
 
-@Repository
+@Repository("fastDo")
 @Transactional
 public class ORMService {
 
@@ -25,7 +25,8 @@ public class ORMService {
 
     public int createEvent(Event event){
         System.out.println("createEvent is called");
-
+        entityManager.persist(event);
+        /*
         String qStr = "insert into event (creator, eventName, description, cover, " +
                 "ageMIN, ageMAX, amount, date, place) values(?,?,?,?,?,?,?,?,?)";
         Query query = entityManager.createNativeQuery(qStr);
@@ -40,8 +41,8 @@ public class ORMService {
         query.setParameter(9, event.getPlace());
 
         int result = query.executeUpdate();
-
-        return result;
+*/
+        return 1;
     }
 
     public int addEventParticipant(int idEvent, int idParticipant){
@@ -75,6 +76,6 @@ public class ORMService {
     }
 
     public int selectLastEventId(){
-        return (Integer) entityManager.createNativeQuery("select max(id) from event").getSingleResult();
+        return (Integer) entityManager.createNativeQuery("select max(id_event) from event").getSingleResult();
     }
 }

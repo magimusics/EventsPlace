@@ -7,16 +7,12 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <!-- auto-config="true" > Automatically registers a login form, BASIC authentication,
-    logout services. use-expressions Enables EL-expressions in the access attribute -->
+
     <http auto-config="true" use-expressions="true"  >
 
-        <!--used to define the set of URL patterns that the application is interested in
-        and to configure how they should be handled. It is used to construct the
-        FilterInvocationSecurityMetadataSource used by the FilterSecurityInterceptor-->
+
         <intercept-url pattern="/security/**" access="hasRole('ADMIN')"/>
-        <!--Если попытаться войти без логина на страницу в этом маппинге (например http://localhost:8080/user/),
-        то будет переброшено на страницу, указанную в form-login login-page='pageName.html' -->
+
         <intercept-url pattern="/user/**" access="hasRole('USER')"/>
 
 
@@ -28,7 +24,7 @@
 
         <logout logout-url="/signout" logout-success-url="/"/>
 
-        <!--Save logged user in cookie with name key='name' -->
+
         <remember-me key="myKey" token-validity-seconds="300"/>
 
         <csrf disabled="true"/>
@@ -44,5 +40,20 @@
         <authentication-provider user-service-ref="jdbcUserService"/>
     </authentication-manager>
 
+    <beans:bean id="emailUsernamePasswordAuthenticationProvider" class="ru.geel.fastest.mvc.message.EmailUsernamePasswordAuthenticationProvider">
+        <beans:property name="userDetailsService" ref="sampleUserDetailsService"/>
+    </beans:bean>
+    <beans:bean id="sampleUserDetailsService" class="ru.geel.fastest.mvc.message.SampleUserDetailsService"/>
 
+<beans:bean id="sdsd" class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">
+    <beans:constructor-arg>
+        <beans:list>
+            <beans:bean class="org.springframework.security.web.csrf.CsrfAuthenticationStrategy">
+                <beans:constructor-arg ref="csrfTokenRepository"/>
+            </beans:bean>
+        </beans:list>
+    </beans:constructor-arg>
+</beans:bean>
+
+    <beans:bean id="csrfTokenRepository" class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository"/>
 </beans:beans>

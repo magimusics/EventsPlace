@@ -12,6 +12,7 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
     <mvc:resources mapping="/images/**" location="/images/" />
+    <mvc:annotation-driven />
 
     <context:property-placeholder location="classpath:util.properties" />
 
@@ -44,6 +45,16 @@
             </props>
         </property>
     </bean>
+
+
+
+
+    <bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://localhost:61616" />
+    </bean>
+
+
+
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>

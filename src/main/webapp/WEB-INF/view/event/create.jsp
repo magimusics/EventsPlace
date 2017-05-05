@@ -25,7 +25,8 @@
                 dataType: 'json',
                 async: true,
                 success: function (dat) {
-                    location.replace(dat);
+                    console.log(dat)
+                    location.replace(dat.event);
                 },
                 error: function (xhr, status, error) {
                     alert(myData);

@@ -65,7 +65,7 @@ public class JDBCExample {
 
     public User queryUser(String name){
 
-        System.out.println("JDBCExample: queryUser() is called");
+        //System.out.println("JDBCExample: queryUser() is called");
         final String QSQL = "select * from user where email='" + name + "'";
         User username = this.jdbcTemplate.queryForObject(QSQL, new RowMapper<User>() {
             @Override
@@ -153,5 +153,23 @@ public class JDBCExample {
         jdbcTemplate.execute(String.format("UPDATE user SET username='" + sUser.getName() + "', lusername='%s', country='%s', city='%s', occupation='%s', bdate='%s'," +
                 "description='%s' WHERE email='%s'", sUser.getLastname(), sUser.getCountry(), sUser.getCity(), sUser.getOccupation(),
                 bDate, sUser.getDescription(), email));
+    }
+
+    public List<User> queryUsers(String[] names){
+        String QSQL = null;
+        if(names.length==2) {
+            QSQL = "select * from user where username like '" + names[0] + "' and lusername like '" + names[1] + "'";
+        }
+        if(names.length==1) {
+            QSQL = "select * from user where username like '" + names[0] + "'";
+        }
+        List<User> userList = this.jdbcTemplate.query(QSQL, new RowMapper<User>() {
+            @Override
+            public User mapRow(ResultSet resultSet, int i) throws SQLException {
+                User user = mapRowUser(resultSet);
+                return user;
+            }
+        });
+        return userList;
     }
 }

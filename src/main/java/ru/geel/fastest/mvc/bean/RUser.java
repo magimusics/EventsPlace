@@ -1,7 +1,5 @@
 package ru.geel.fastest.mvc.bean;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 /**
  * Created by ivangeel on 27.02.17.
  */
